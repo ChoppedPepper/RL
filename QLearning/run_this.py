@@ -13,7 +13,8 @@ View more on my tutorial page: https://morvanzhou.github.io/tutorials/
 """
 
 from maze_env import Maze
-from RL_brain import QLearningTable
+# from RL_brain import QLearningTable
+from QL import QLearningTable
 
 
 def update():
@@ -27,6 +28,7 @@ def update():
 
             # RL choose action based on observation
             action = RL.choose_action(str(observation))
+            action = RL.chooseAction(str(observation))
 
             # RL take action and get next observation and reward
             observation_, reward, done = env.step(action)
