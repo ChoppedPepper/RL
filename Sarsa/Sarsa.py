@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-class QLearningTable:
+class SarsaTable:
     def __init__(self, actions, learningRate = 0.02, rewardDecay = 0.9, eGreed = 0.9):
         self.actions = actions  # a list for different actions
         self.lr = learningRate
@@ -24,14 +24,16 @@ class QLearningTable:
         return action
 
 
-    def learn(self, state, action, reward, state_):  # state_ : state after take last action
+    def learn(self, state, action, reward, state_, action_):  # state_ : state after take last action
         self.check_state_exist(state_)
 
         qPredict = self.qTable.loc[state, action]
         if state_ != "teminal":
-            qObserve = reward + self.gamma * self.qTable.loc[state_, :].max()  # key expression
+            # qObserve = reward + self.gamma * self.qTable.loc[state_, :].max()  # key expression
+            qObserve = reward + self.gamma * self.qTable.loc[state_, action_]  # learn after make next decision : action_
         else:
             qObserve = reward
+
         self.qTable.loc[state, action] += self.lr * (qObserve - qPredict)
 
 
