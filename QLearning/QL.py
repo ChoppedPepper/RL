@@ -2,12 +2,12 @@ import numpy as np
 import pandas as pd
 
 class QLearningTable:
-    def __init__(self, actions, learningRate = 0.01, rewardDecay = 0.9, eGreed = 0.9):
+    def __init__(self, actions, learningRate = 0.02, rewardDecay = 0.9, eGreed = 0.9):
         self.actions = actions  # a list for different actions
         self.lr = learningRate
         self.gamma = rewardDecay
         self.epsilon = eGreed
-        self.q_table = pd.DataFrame(columns = self.actions)
+        self.q_table = pd.DataFrame(columns = self.actions, dtype=np.float64)
 
 
     def chooseAction(self, state):
@@ -17,7 +17,7 @@ class QLearningTable:
             state_action = self.q_table.loc[state, :]
             # reindex in case of same reward for different state_action
             state_action = state_action.reindex(np.random.permutation(state_action.index))
-            action = state_action.argmax()
+            action = state_action.idxmax()
         else:
             action = np.random.choice(self.actions)
 

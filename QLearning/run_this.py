@@ -27,7 +27,7 @@ def update():
             env.render()
 
             # RL choose action based on observation
-            action = RL.choose_action(str(observation))
+            # action = RL.choose_action(str(observation))
             action = RL.chooseAction(str(observation))
 
             # RL take action and get next observation and reward
